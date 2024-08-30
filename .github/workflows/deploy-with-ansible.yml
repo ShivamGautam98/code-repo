@@ -43,6 +43,10 @@ jobs:
 
     - name: Install Ansible
       run: sudo apt-get update && sudo apt-get install -y ansible
+    - name: Display content
+      run: |
+        pwd
+        ls
 
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2

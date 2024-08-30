@@ -21,7 +21,16 @@ jobs:
         cache: 'maven'
 
     - name: Build with Maven
+      run: mvn test
+      env:
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        
+    - name: Build with Maven
       run: mvn clean package -DskipTests
+      env:
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v3
@@ -41,7 +50,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: app.jar
-        
+
     - name: Display content
       run: |
         pwd

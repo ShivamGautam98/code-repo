@@ -52,5 +52,6 @@ jobs:
       uses: dawidd6/action-ansible-playbook@v2
       with:
         playbook: playbook.yml
-        inventory: inventory.ini
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        options: |
+          --inventory inventory.ini

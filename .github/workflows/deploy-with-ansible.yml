@@ -34,6 +34,8 @@ jobs:
     needs: build
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Download JAR artifact
       uses: actions/download-artifact@v3
       with:
@@ -42,8 +44,8 @@ jobs:
     - name: Install Ansible
       run: sudo apt-get update && sudo apt-get install -y ansible
 
-    - name: Deploy Application with Ansible
-      run: |
-        pwd
-        ls
-        ansible-playbook -i inventory.ini playbook.yml
+    - name: Run playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: playbook.yml
+        key: ${{ secrets.SSH_PRIVATE_KEY }}

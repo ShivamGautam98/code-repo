@@ -1,0 +1,42 @@
+---
+- hosts: gce_instance
+  become: true
+  tasks:
+    - name: Ensure the directory for the application exists
+      ansible.builtin.file:
+        path: /opt/myapp
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Copy the JAR file to the server
+      ansible.builtin.copy:
+        src: ./target/app.jar
+        dest: /opt/myapp/app.jar
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Create a systemd service file for the application
+      ansible.builtin.template:
+        src: myapp.service.j2
+        dest: /etc/systemd/system/myapp.service
+        mode: '0644'
+      notify: Restart myapp service
+
+    - name: Reload systemd to pick up the new service file
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Enable myapp service to start on boot
+      ansible.builtin.systemd:
+        name: myapp
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: Restart myapp service
+      ansible.builtin.systemd:
+        name: myapp
+        state: restarted

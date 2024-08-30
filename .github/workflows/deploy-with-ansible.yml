@@ -44,4 +44,6 @@ jobs:
 
     - name: Deploy Application with Ansible
       run: |
+        pwd
+        ls
         ansible-playbook -i inventory.ini playbook.yml

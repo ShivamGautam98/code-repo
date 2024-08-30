@@ -45,11 +45,6 @@ jobs:
       with:
         name: app.jar
 
-    - name: Display content
-      run: |
-        pwd
-        ls
-
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
       with:

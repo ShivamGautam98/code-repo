@@ -43,7 +43,5 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y ansible
 
     - name: Deploy Application with Ansible
-      env:
-        ANSIBLE_HOST_KEY_CHECKING: false
       run: |
         ansible-playbook -i inventory.ini playbook.yml

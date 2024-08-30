@@ -3,11 +3,10 @@
   hosts: gce_instance
   become: yes
   vars:
-    db_host: "10.41.0.3"  # Replace with your dynamic or static IP
+    db_host: "10.41.0.3" 
     db_user: "root"
     db_password: "admin"
-    sql_file: "./devops.sql" # Replace with the actual path to your SQL file
-    db_name: "devops"
+    sql_file: "./devops.sql"
 
   tasks:
     - name: Update and install required packages

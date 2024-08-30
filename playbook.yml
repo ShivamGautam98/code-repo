@@ -41,7 +41,7 @@
         login_host: "{{ db_host }}"
         login_user: "{{ db_user }}"
         login_password: "{{ db_password }}"
-        name: "{{ db_name }}"
+        name: "all"
       register: sql_result
 
 

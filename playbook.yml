@@ -24,7 +24,6 @@
         state: present
       loop:
         - python3-pymysql  # Python 3 version of PyMySQL
-        - python3-mysqlclient  # Alternatively, mysqlclient
 
     - name: Copy SQL file to the instance
       copy:

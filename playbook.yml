@@ -17,6 +17,14 @@
           - openjdk-17-jre
         update_cache: yes
         state: present
+    - name: Install Python MySQL libraries
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3-pymysql  # Python 3 version of PyMySQL
+        - python3-mysqlclient  # Alternatively, mysqlclient
+      update_cache: yes
 
     - name: Copy SQL file to the instance
       copy:
@@ -24,15 +32,15 @@
         dest: /tmp/devops.sql
         mode: '0644'
 
-    - name: Create MySQL credentials file
-      copy:
-        content: |
-          [client]
-          user={{ db_user }}
-          password={{ db_password }}
-          host={{ db_host }}
-        dest: /root/.my.cnf
-        mode: '0600'
+    # - name: Create MySQL credentials file
+    #   copy:
+    #     content: |
+    #       [client]
+    #       user={{ db_user }}
+    #       password={{ db_password }}
+    #       host={{ db_host }}
+    #     dest: /root/.my.cnf
+    #     mode: '0600'
 
     - name: Run SQL script on MySQL database
       mysql_db:

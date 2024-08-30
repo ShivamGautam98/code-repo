@@ -2,11 +2,6 @@
 - name: Setup and configure application instance
   hosts: gce_instance
   become: yes
-  vars:
-    db_host: "10.41.0.3" 
-    db_user: "root"
-    db_password: "admin"
-    sql_file: "./devops.sql"
 
   tasks:
     - name: Update and install required packages
@@ -14,19 +9,13 @@
         name:
           - mysql-client
           - openjdk-17-jre
+          - python3-pymysql
         update_cache: yes
         state: present
 
-    - name: Install Python MySQL libraries
-      apt:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - python3-pymysql  # Python 3 version of PyMySQL
-
     - name: Copy SQL file to the instance
       copy:
-        src: "{{ sql_file }}"
+        src: "./devops.sql"
         dest: /tmp/devops.sql
         mode: '0644'
 
@@ -35,11 +24,10 @@
         state: import
         target: "/tmp/devops.sql"
         login_host: "{{ db_host }}"
-        login_user: "{{ db_user }}"
-        login_password: "{{ db_password }}"
+        login_user: "{{ lookup('env', 'DB_USER') }}"
+        login_password: "{{ lookup('env', 'DB_PASSWORD') }}"
         name: "all"
       register: sql_result
-
 
     - name: Ensure the directory for the application exists
       ansible.builtin.file:
@@ -51,16 +39,8 @@
 
     - name: Copy the JAR file to the server
       ansible.builtin.copy:
-        src: ./target/*.jar
+        src: ./target/DevsOps-0.0.1-SNAPSHOT.jar
         dest: /opt/myapp/app.jar
-        owner: ubuntu
-        group: ubuntu
-        mode: '0755'
-    
-    - name: Copy the SQL file to the server
-      ansible.builtin.copy:
-        src: ./devops.sql
-        dest: /opt/myapp/devops.sql
         owner: ubuntu
         group: ubuntu
         mode: '0755'

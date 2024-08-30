@@ -47,6 +47,9 @@ jobs:
 
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
+      env:
+        DB_USER: ${{ secrets.DB_USER}}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD}}
       with:
         playbook: playbook.yml
         key: ${{ secrets.SSH_PRIVATE_KEY }}

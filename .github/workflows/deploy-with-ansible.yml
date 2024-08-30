@@ -42,13 +42,8 @@ jobs:
     - name: Install Ansible
       run: sudo apt-get update && sudo apt-get install -y ansible
 
-    - name: Set up Ansible Inventory
-      run: |
-        echo '[gce_instance]' > inventory.ini
-        echo "${{ secrets.GCE_INSTANCE_IP }}" >> inventory.ini
-
     - name: Deploy Application with Ansible
       env:
         ANSIBLE_HOST_KEY_CHECKING: false
       run: |
-        ansible-playbook -i inventory.ini deploy.yml
+        ansible-playbook -i inventory.ini playbook.yml

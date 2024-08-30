@@ -28,6 +28,10 @@
         login_password: "{{ lookup('env', 'DB_PASSWORD') }}"
         name: "all"
       register: sql_result
+    
+    - name: Display SQL execution result
+      debug:
+        var: sql_result
 
     - name: Ensure the directory for the application exists
       ansible.builtin.file:
@@ -39,7 +43,7 @@
 
     - name: Copy the JAR file to the server
       ansible.builtin.copy:
-        src: ./target/DevsOps-0.0.1-SNAPSHOT.jar
+        src: DevsOps-0.0.1-SNAPSHOT.jar
         dest: /opt/myapp/app.jar
         owner: ubuntu
         group: ubuntu

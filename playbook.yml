@@ -31,20 +31,10 @@
         dest: /tmp/devops.sql
         mode: '0644'
 
-    # - name: Create MySQL credentials file
-    #   copy:
-    #     content: |
-    #       [client]
-    #       user={{ db_user }}
-    #       password={{ db_password }}
-    #       host={{ db_host }}
-    #     dest: /root/.my.cnf
-    #     mode: '0600'
-
     - name: Run SQL script on MySQL database
       mysql_db:
         state: import
-        target: "{{ sql_file }}"
+        target: "/tmp/devops.sql"
         login_host: "{{ db_host }}"
         login_user: "{{ db_user }}"
         login_password: "{{ db_password }}"
@@ -68,7 +58,7 @@
         group: ubuntu
         mode: '0755'
     
-    - name: Copy the JAR file to the server
+    - name: Copy the SQL file to the server
       ansible.builtin.copy:
         src: ./devops.sql
         dest: /opt/myapp/devops.sql

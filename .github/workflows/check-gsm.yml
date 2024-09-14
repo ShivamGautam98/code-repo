@@ -25,6 +25,4 @@ jobs:
       uses: 'google-github-actions/get-secretmanager-secrets@v2'
       with:
         secrets: |-
-          mysct:projects/456501578714/secrets/mysct
-
-      
+          mysct:projects/456501578714/secrets/mysct/versions/1

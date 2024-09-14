@@ -19,12 +19,11 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         create_credentials_file: true
-        workload_identity_provider: 'projects/celtic-music-434007-r1/locations/global/workloadIdentityPools/github-actions-sm-demo/providers/github'
+        workload_identity_provider: 'projects/456501578714/locations/global/workloadIdentityPools/github-actions-sm-demo/providers/github'
         service_account: 'secret-manager@celtic-music-434007-r1.iam.gserviceaccount.com'
     - id: 'secrets'
       uses: 'google-github-actions/get-secretmanager-secrets@v2'
       with:
         secrets: |-
-          mysct:projects/celtic-music-434007-r1/secrets/mysct/versions/latest
-
+          mysct:projects/456501578714/secrets/mysct/versions/latest
 

@@ -26,7 +26,3 @@ jobs:
       with:
         secrets: |-
             token:projects/456501578714/secrets/mysct/versions/1
-
-
-
-            - id: 'auth'

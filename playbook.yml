@@ -4,6 +4,9 @@
   become: yes
 
   tasks:
+    - name: Display Facts
+      debug: 
+        vars: ansible_facts
     - name: Update and install required packages
       apt:
         name:

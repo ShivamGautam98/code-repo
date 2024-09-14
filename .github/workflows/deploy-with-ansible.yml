@@ -3,7 +3,7 @@ name: CI/CD with Ansible to GCP Compute Engine
 on:
   push:
     branches:
-      - '*'
+      - 'temp-stop'
 
 jobs:
   build:

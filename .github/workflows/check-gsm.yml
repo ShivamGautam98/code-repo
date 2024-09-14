@@ -1,0 +1,28 @@
+name: CI/CD with Ansible to GCP Compute Engine
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  job_id:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: 'actions/checkout@v4'
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        workload_identity_provider: 'principal://iam.googleapis.com/projects/456501578714/locations/global/workloadIdentityPools/github-actions-identity/subject/SUBJECT_ATTRIBUTE_VALUE'
+        service_account: 'github-actions-impersonation@celtic-music-434007-r1.iam.gserviceaccount.com'
+
+    - id: 'secrets'
+      uses: 'google-github-actions/get-secretmanager-secrets@v2'
+      with:
+        secrets: |-
+            token:projects/456501578714/secrets/mysct/versions/1

@@ -26,6 +26,6 @@ jobs:
         secrets: |-
             token:projects/456501578714/secrets/mysct/versions/1
     - id: 'publish'
-      uses: 'foo/bar@v1'
+      run: echo hi
       env:
         TOKEN: '${{ steps.secrets.outputs.token }}'

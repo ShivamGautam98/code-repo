@@ -24,7 +24,7 @@ jobs:
       uses: 'google-github-actions/get-secretmanager-secrets@v2'
       with:
         secrets: |-
-            token:projects/456501578714/secrets/mysct/versions/1
+            token:456501578714/mysct
     - id: 'publish'
       run: echo hi
       env:

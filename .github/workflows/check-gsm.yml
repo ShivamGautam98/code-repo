@@ -18,7 +18,7 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
-        workload_identity_provider: 'principal://iam.googleapis.com/projects/456501578714/locations/global/workloadIdentityPools/github-actions-identity/subject/SUBJECT_ATTRIBUTE_VALUE'
+        workload_identity_provider: 'principal://iam.googleapis.com/projects/456501578714/locations/global/workloadIdentityPools/github-actions-identity/subject/github'
         service_account: 'github-actions-impersonation@celtic-music-434007-r1.iam.gserviceaccount.com'
 
     - id: 'secrets'

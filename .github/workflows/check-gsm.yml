@@ -1,4 +1,4 @@
-name: CI/CD with Ansible to GCP Compute Engine
+name: check secrets manager
 
 on:
   push:
@@ -18,7 +18,6 @@ jobs:
     - name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        create_credentials_file: true
         workload_identity_provider: 'projects/456501578714/locations/global/workloadIdentityPools/github-actions-sm-demo/providers/github'
         service_account: 'secret-manager@celtic-music-434007-r1.iam.gserviceaccount.com'
     - id: 'secrets'
@@ -26,3 +25,7 @@ jobs:
       with:
         secrets: |-
             token:projects/456501578714/secrets/mysct/versions/1
+    - id: 'publish'
+      uses: 'foo/bar@v1'
+      env:
+        TOKEN: '${{ steps.secrets.outputs.token }}'
